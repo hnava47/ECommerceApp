@@ -1,5 +1,6 @@
 import {
-  LoginSide
+  LoginSide,
+  SignUp
 } from './containers';
 
 export const App = () => {
