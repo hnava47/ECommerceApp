@@ -1,11 +1,11 @@
 import {
-  Login
+  LoginSide
 } from './containers';
 
 export const App = () => {
   return (
     <div>
-      <Login/>
+      <LoginSide/>
     </div>
   );
 }
