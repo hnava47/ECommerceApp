@@ -31,7 +31,7 @@ type User {
 
   type Cart {
      _id: ID
-     products: [Product.name]
+     products: [Product]
 
   }
 

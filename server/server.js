@@ -1,19 +1,21 @@
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
+// const jwt = require('jsonwebtoken');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+// const { authMiddleware } = require('./utils/auth');
 
 const PORT = process.env.PORT || 30001
-
+const app = express();
 const server = new ApolloServer({
     typeDefs,
     resolvers
 });
 
-const app = express();
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 
 const startApolloServer = async (typeDefs, resolvers) => {
     await server.start();
