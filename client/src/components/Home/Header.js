@@ -4,6 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
@@ -27,9 +28,9 @@ export const Header = (props) => {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Button variant="outlined" size="small">
-          Sign up
-        </Button>
+        <IconButton>
+          <ShoppingCartOutlinedIcon/>
+        </IconButton>
       </Toolbar>
       <Toolbar
         component="nav"
