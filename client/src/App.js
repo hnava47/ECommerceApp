@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import {
   Blog,
+  Checkout,
   LoginSide,
   SignUp
 } from './pages';
@@ -30,6 +31,10 @@ export const App = () => {
               <Route
                 path='/home'
                 element={<Blog/>}
+              />
+              <Route
+                path='/checkout'
+                element={<Checkout/>}
               />
             </Routes>
           </div>

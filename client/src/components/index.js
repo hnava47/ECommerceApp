@@ -5,4 +5,4 @@ export * from './Main';
 export * from './MainFeaturedPost';
 export * from './Markdown';
 export * from './Sidebar';
-
+export * from './Checkout';
