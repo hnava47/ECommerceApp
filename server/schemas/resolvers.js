@@ -1,4 +1,4 @@
-const { AuthenticationError } = require('apollo-server-express');
+const { AuthorizationError } = require('apollo-server-express');
 const { User, Product, Category, Order, Cart } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
@@ -6,10 +6,8 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 /// ask if the ids have to match the ids in typedefs 
 const resolvers = {
     Query: {
-        users: async (_root, _args, context) => {
-            if (!context.reg.user) {
-                throw new AuthenticationError('you must be logged in to do that');
-            }
+
+        user: async () => {
             return await User.find({})
         },
 
@@ -92,13 +90,13 @@ const resolvers = {
             const user = await User.findOne({ email });
 
             if (!user) {
-                throw new AuthenticationError('Incorrect credentials');
+                throw new AuthorizationError('Incorrect credentials');
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                throw new AuthenticationError('Incorrect credentials');
+                throw new AuthorizationError('Incorrect credentials');
             }
 
             const token = signToken(user);
@@ -112,8 +110,19 @@ const resolvers = {
                 return await User.findByIdAndUpdate(context.user._id, args, { new: true });
             }
 
-            throw new AuthenticationError('Not logged in');
+            throw new AuthorizationError('Not logged in');
         },
+
+        addProduct: async (_root, { name, description, unitPrice, quantityOnHand, }) => {
+            return await Product.create({
+                name,
+                description,
+                unitPrice,
+                quantityOnHand,
+
+            })
+        },
+
 
     }
 }
