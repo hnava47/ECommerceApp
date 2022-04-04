@@ -1,11 +1,12 @@
 import {
-  Login,
-  Signup
+  Login
 } from './containers';
 
 export const App = () => {
   return (
-    <div></div>
+    <div>
+      <Login/>
+    </div>
   );
 }
 

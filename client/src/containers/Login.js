@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
+const Copyright = (props) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -28,7 +28,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export const SignIn = () => {
+export const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -108,4 +108,5 @@ export const SignIn = () => {
     </ThemeProvider>
   );
 }
-export default SignIn;
+
+export default Login;
