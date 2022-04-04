@@ -5,6 +5,7 @@ type User {
     _id: ID
     firstName: String
     lastName: String
+    username: String
     email: String
     orders: [Order]
   }
@@ -44,8 +45,33 @@ type User {
     user: User
   }
 
+  type Query {
+    users: [User]
+    user(_id: ID): Order
+    products(category: ID, name: String): [Product]
+    product(_id: ID!): Product
+    orders: [Order]
+    order(_id: ID!): Order
+    categories: [Category]
+    category(_id: ID!): Category
+    
+    checkout(products: [ID]!): Checkout
+  }
+
+  type Mutation {
+    addUser(
+    firstName: String!,
+     lastName: String!,
+     username: String!,
+     email: String!,
+      password: String!): Auth
+    login(email: String!, password: String!): Auth
+    updateUser(firstName: String, lastName: String, email: String, password: String): User
+  }
+
 `;
 
 module.exports = typeDefs;
 //// ask why we need auth and checkout
 // ask about cart 
+// : Auth
