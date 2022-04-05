@@ -81,8 +81,11 @@ type User {
     description: String,
     unitPrice: Float,
     quantityOnHand: Int,
-    
     ):Product
+
+    addOrder(products: [ID]!): Order
+
+   
   
   }
   

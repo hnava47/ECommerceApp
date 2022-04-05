@@ -122,6 +122,11 @@ const resolvers = {
 
             })
         },
+        addOrder: async (parent, { products }, context) => {
+            console.log({ product: products });
+            return await Order.create({ products })
+
+        },
 
 
     }
