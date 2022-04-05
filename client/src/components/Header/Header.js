@@ -1,5 +1,7 @@
 import { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import TextField from '@mui/material/TextField';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -10,6 +12,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+
+const filter = createFilterOptions();
 
 const style = {
   position: 'absolute',
@@ -25,6 +29,7 @@ const style = {
 
 export const Header = (props) => {
   const { sections, title } = props;
+  const [value, setValue] = useState(null);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -59,10 +64,60 @@ export const Header = (props) => {
           <Fade in={open}>
             <Box sx={style}>
               <Typography id="transition-modal-title" variant="h6" component="h2">
-                Text in a modal
-              </Typography>
-              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                <Autocomplete
+                  value={value}
+                  onChange={(event, newValue) => {
+                    if (typeof newValue === 'string') {
+                      setValue({
+                        title: newValue,
+                      });
+                    } else if (newValue && newValue.inputValue) {
+                      // Create a new value from the user input
+                      setValue({
+                        title: newValue.inputValue,
+                      });
+                    } else {
+                      setValue(newValue);
+                    }
+                  }}
+                  filterOptions={(options, params) => {
+                    const filtered = filter(options, params);
+
+                    const { inputValue } = params;
+                    // Suggest the creation of a new value
+                    const isExisting = options.some((option) => inputValue === option.title);
+                    if (inputValue !== '' && !isExisting) {
+                      filtered.push({
+                        inputValue,
+                        title: `Add "${inputValue}"`,
+                      });
+                    }
+
+                    return filtered;
+                  }}
+                  selectOnFocus
+                  clearOnBlur
+                  handleHomeEndKeys
+                  id="free-solo-with-text-demo"
+                  options={top100Films}
+                  getOptionLabel={(option) => {
+                    // Value selected with enter, right from the input
+                    if (typeof option === 'string') {
+                      return option;
+                    }
+                    // Add "xxx" option created dynamically
+                    if (option.inputValue) {
+                      return option.inputValue;
+                    }
+                    // Regular option
+                    return option.title;
+                  }}
+                  renderOption={(props, option) => <li {...props}>{option.title}</li>}
+                  freeSolo
+                  renderInput={(params) => (
+                    <TextField {...params} label="Search" />
+                  )}
+                />
               </Typography>
             </Box>
           </Fade>
@@ -102,5 +157,43 @@ Header.propTypes = {
   ).isRequired,
   title: PropTypes.string.isRequired,
 };
+
+const top100Films = [
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Godfather', year: 1972 },
+  { title: 'The Godfather: Part II', year: 1974 },
+  { title: 'The Dark Knight', year: 2008 },
+  { title: '12 Angry Men', year: 1957 },
+  { title: "Schindler's List", year: 1993 },
+  { title: 'Pulp Fiction', year: 1994 },
+  {
+    title: 'The Lord of the Rings: The Return of the King',
+    year: 2003,
+  },
+  { title: 'The Good, the Bad and the Ugly', year: 1966 },
+  { title: 'Fight Club', year: 1999 },
+  {
+    title: 'The Lord of the Rings: The Fellowship of the Ring',
+    year: 2001,
+  },
+  {
+    title: 'Star Wars: Episode V - The Empire Strikes Back',
+    year: 1980,
+  },
+  { title: 'Forrest Gump', year: 1994 },
+  { title: 'Inception', year: 2010 },
+  {
+    title: 'The Lord of the Rings: The Two Towers',
+    year: 2002,
+  },
+  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+  { title: 'Goodfellas', year: 1990 },
+  { title: 'The Matrix', year: 1999 },
+  { title: 'Seven Samurai', year: 1954 },
+  {
+    title: 'Star Wars: Episode IV - A New Hope',
+    year: 1977,
+  }
+]
 
 export default Header;
