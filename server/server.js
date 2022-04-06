@@ -1,12 +1,13 @@
+require('dotenv').config();
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
-const dotenv = require('dotenv');
 
-dotenv.config();
+
+
 const PORT = process.env.PORT || 30001
 const app = express();
 const server = new ApolloServer({
