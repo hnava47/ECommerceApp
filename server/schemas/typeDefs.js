@@ -17,12 +17,16 @@ type User {
     quantityOnHand: Int
     unitPrice: Float
     category: Category
+    user:[User]!
   }
+
+
 
   type Order {
     _id: ID
     purchaseDate: String
     products: [Product]
+    user:[User]
   }
 
   type Category {
@@ -33,6 +37,7 @@ type User {
   type Cart {
      _id: ID
      products: [Product]
+     
 
   }
 
@@ -83,9 +88,9 @@ type User {
     quantityOnHand: Int,
     ):Product
 
-    addOrder(products: [ID]!): Order
+    addOrder(name: String,_id: String,username: String,): Product
 
-   
+  
   
   }
   

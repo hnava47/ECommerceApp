@@ -7,7 +7,7 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
     Query: {
 
-        user: async () => {
+        users: async () => {
             return await User.find({})
         },
 
@@ -122,9 +122,10 @@ const resolvers = {
 
             })
         },
-        addOrder: async (parent, { products }, context) => {
-            console.log({ product: products });
-            return await Order.create({ products })
+        addOrder: async (parent, { ID, name, username }, context) => {
+
+            console.log(Product(ID, name, username));
+            return await Order.create({ ID, name, username })
 
         },
 
