@@ -10,7 +10,14 @@ const orderSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Product'
         }
-    ]
+    ],
+
+    username: {
+        type: String,
+        required: true
+    }
+
+
 });
 
 const Order = model('Order', orderSchema);
