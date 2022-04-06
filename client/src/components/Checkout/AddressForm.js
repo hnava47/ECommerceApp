@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 export const AddressForm = () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
@@ -104,7 +104,7 @@ export const AddressForm = () => {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,31 +9,14 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import AddressForm from './AddressForm';
-// import PaymentForm from './PaymentForm';
-// import Review from './Review';
 
 import {
     AddressForm,
     PaymentForm,
     Review
 } from '../components'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
@@ -53,7 +36,7 @@ function getStepContent(step) {
 const theme = createTheme();
 
 export const Checkout = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -93,9 +76,9 @@ export const Checkout = () => {
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
+          <Fragment>
             {activeStep === steps.length ? (
-              <React.Fragment>
+              <Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
@@ -104,9 +87,9 @@ export const Checkout = () => {
                   confirmation, and will send you an update when your order has
                   shipped.
                 </Typography>
-              </React.Fragment>
+              </Fragment>
             ) : (
-              <React.Fragment>
+              <Fragment>
                 {getStepContent(activeStep)}
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   {activeStep !== 0 && (
@@ -123,11 +106,10 @@ export const Checkout = () => {
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                   </Button>
                 </Box>
-              </React.Fragment>
+              </Fragment>
             )}
-          </React.Fragment>
+          </Fragment>
         </Paper>
-        <Copyright />
       </Container>
     </ThemeProvider>
   );
