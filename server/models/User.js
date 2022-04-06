@@ -30,10 +30,10 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true,
         validate: {
-            validator: function(value) {
+            validator: function (value) {
                 return isEmail(value);
             },
-            message: function(userObject) {
+            message: function (userObject) {
                 return `${userObject.email} is not a valid email address`;
             }
         }
@@ -49,14 +49,14 @@ const userSchema = new Schema({
         default: Date.now
     }
 },
-{
-    toJSON: {
-        virtuals: true
-    },
-    id: false
-});
+    {
+        toJSON: {
+            virtuals: true
+        },
+        id: false
+    });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
         const saltRounds = 10;
         this.password = await bcrypt.hash(this.password, saltRounds);
@@ -65,7 +65,7 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
-userSchema.methods.isCorrectPassword = async function(password) {
+userSchema.methods.isCorrectPassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 

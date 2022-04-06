@@ -5,16 +5,19 @@ const orderSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    username: {
-        type: String,
-        required: true
-    },
     products: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Product'
         }
-    ]
+    ],
+
+    username: {
+        type: String,
+        required: true
+    }
+
+
 });
 
 const Order = model('Order', orderSchema);
