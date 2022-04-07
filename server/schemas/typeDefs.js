@@ -17,12 +17,16 @@ type User {
     quantityOnHand: Int
     unitPrice: Float
     category: Category
+    user:[User]!
   }
+
+
 
   type Order {
     _id: ID
     purchaseDate: String
     products: [Product]
+    user:[User]
   }
 
   type Category {
@@ -33,6 +37,8 @@ type User {
   type Cart {
      _id: ID
      products: [Product]
+     order:[Order]
+     
 
   }
 
@@ -54,8 +60,8 @@ type User {
     order(_id: ID!): Order
     categories: [Category]
     category(_id: ID!): Category
-    
     checkout(products: [ID]!): Checkout
+    cart:[Cart]
   }
 
   type Mutation {
@@ -83,9 +89,11 @@ type User {
     quantityOnHand: Int,
     ):Product
 
-    addOrder(products: [ID]!): Order
+    addOrder(name: String, productID:ID,username: String,):Product
 
-   
+    addCart (orderID:ID, username:String): Order
+
+  
   
   }
   

@@ -7,7 +7,7 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
     Query: {
 
-        user: async () => {
+        users: async () => {
             return await User.find({})
         },
 
@@ -36,6 +36,10 @@ const resolvers = {
         },
         category: async (_root, { id }) => {
             return await Category.findById(id);
+        },
+
+        cart: async () => {
+            return await Cart.find({})
         },
 
         checkout: async (parent, args, context) => {
@@ -122,11 +126,17 @@ const resolvers = {
 
             })
         },
-        addOrder: async (parent, { products }, context) => {
-            console.log({ product: products });
-            return await Order.create({ products })
+        addOrder: async (parent, { name, productID, username }, context) => {
+
+            console.log(name);
+            return await Order.create({ name, productID, username })
 
         },
+
+        addCart: async (parent, { orderID, username }, context) => {
+
+            return await Cart.create({ orderID, username })
+        }
 
 
     }
