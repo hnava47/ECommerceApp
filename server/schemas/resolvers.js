@@ -38,6 +38,10 @@ const resolvers = {
             return await Category.findById(id);
         },
 
+        cart: async () => {
+            return await Cart.find({})
+        },
+
         checkout: async (parent, args, context) => {
             const url = new URL(context.headers.referer).origin;
             const order = new Order({ products: args.products });
@@ -122,12 +126,17 @@ const resolvers = {
 
             })
         },
-        addOrder: async (parent, { ID, name, username }, context) => {
+        addOrder: async (parent, { name, productID, username }, context) => {
 
-            console.log(Product(ID, name, username));
-            return await Order.create({ ID, name, username })
+            console.log(name);
+            return await Order.create({ name, productID, username })
 
         },
+
+        addCart: async (parent, { orderID, username }, context) => {
+
+            return await Cart.create({ orderID, username })
+        }
 
 
     }

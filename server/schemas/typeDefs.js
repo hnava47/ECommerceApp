@@ -37,6 +37,7 @@ type User {
   type Cart {
      _id: ID
      products: [Product]
+     order:[Order]
      
 
   }
@@ -59,8 +60,8 @@ type User {
     order(_id: ID!): Order
     categories: [Category]
     category(_id: ID!): Category
-    
     checkout(products: [ID]!): Checkout
+    cart:[Cart]
   }
 
   type Mutation {
@@ -88,7 +89,9 @@ type User {
     quantityOnHand: Int,
     ):Product
 
-    addOrder(name: String,_id: String,username: String,): Product
+    addOrder(name: String, productID:ID,username: String,):Product
+
+    addCart (orderID:ID, username:String): Order
 
   
   
