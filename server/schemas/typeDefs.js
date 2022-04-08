@@ -38,8 +38,14 @@ type User {
 
   type Cart {
      _id: ID
+     username:String
+     productID:String
+     productName:String
+     orderQuantity:Int
      products: [Product]
-     order:[Order]
+     user:[User]
+     order: [Order]
+     
      
 
   }
@@ -91,9 +97,11 @@ type User {
     quantityOnHand: Int,
     ):Product
 
+    addCart (username:String, productID:String, productName:String,orderQuantity:Int): Product
+
     addOrder(productName:String, productId:String,username:String,):Order
     
-    addCart (productID:String, productName:String): Product
+   
 }
   
 

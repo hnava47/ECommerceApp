@@ -127,17 +127,18 @@ const resolvers = {
 
         },
 
-
-
-        addCart: async (parent, { productID, productName }, context) => {
-
-            return await Cart.create({ productID, productName })
-        },
-
         addProduct: async (parent, { productName, description, unitPrice, quantityOnHand }, context) => {
             const product = await Product.create({ productName, description, unitPrice, quantityOnHand })
             return product;
-        }
+        },
+
+
+        addCart: async (parent, { username, productID, productName, orderQuantity }, context) => {
+
+            return await Cart.create({ username, productID, productName, orderQuantity })
+        },
+
+
 
 
     }
