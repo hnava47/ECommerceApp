@@ -118,15 +118,6 @@ const resolvers = {
         },
 
 
-        addOrder: async (parent, { productName, productId, username }, context) => {
-
-            console.log({ productName });
-            const order = await Order.create({ productName, productId, username })
-            console.log(order);
-            return order;
-
-        },
-
         addProduct: async (parent, { productName, description, unitPrice, quantityOnHand }, context) => {
             const product = await Product.create({ productName, description, unitPrice, quantityOnHand })
             return product;
@@ -136,6 +127,15 @@ const resolvers = {
         addCart: async (parent, { username, productID, productName, orderQuantity }, context) => {
 
             return await Cart.create({ username, productID, productName, orderQuantity })
+        },
+
+        addOrder: async (parent, { productName, cartId, username }, context) => {
+
+            console.log({ productName });
+            const order = await Order.create({ productName, cartId, username })
+            console.log(order);
+            return order;
+
         },
 
 

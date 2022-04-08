@@ -99,7 +99,7 @@ type User {
 
     addCart (username:String, productID:String, productName:String,orderQuantity:Int): Product
 
-    addOrder(productName:String, productId:String,username:String,):Order
+    addOrder(productName:String, cartId:ID,username:String,):Cart
     
    
 }
