@@ -27,7 +27,7 @@ const resolvers = {
             return await Order.find({})
         },
 
-        order: async (_root, { id }) => {
+        order: async (_root, { user }) => {
             return await Order.findById(id);
         },
 
@@ -117,25 +117,26 @@ const resolvers = {
             throw new AuthorizationError('Not logged in');
         },
 
-        addProduct: async (_root, { name, description, unitPrice, quantityOnHand, }) => {
-            return await Product.create({
-                name,
-                description,
-                unitPrice,
-                quantityOnHand,
 
-            })
-        },
-        addOrder: async (parent, { name, productID, username }, context) => {
+        addOrder: async (parent, { productName, productId, username }, context) => {
 
-            console.log(name);
-            return await Order.create({ name, productID, username })
+            console.log({ productName });
+            const order = await Order.create({ productName, productId, username })
+            console.log(order);
+            return order;
 
         },
 
-        addCart: async (parent, { orderID, username }, context) => {
 
-            return await Cart.create({ orderID, username })
+
+        addCart: async (parent, { productID, productName }, context) => {
+
+            return await Cart.create({ productID, productName })
+        },
+
+        addProduct: async (parent, { productName, description, unitPrice, quantityOnHand }, context) => {
+            const product = await Product.create({ productName, description, unitPrice, quantityOnHand })
+            return product;
         }
 
 

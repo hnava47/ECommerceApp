@@ -12,7 +12,7 @@ type User {
 
   type Product {
     _id: ID
-    name: String
+    productName: String
     description: String
     quantityOnHand: Int
     unitPrice: Float
@@ -24,6 +24,8 @@ type User {
 
   type Order {
     _id: ID
+    productName: String
+    username: String
     purchaseDate: String
     products: [Product]
     user:[User]
@@ -83,19 +85,16 @@ type User {
        password: String): User
   
     addProduct(
-      name: String,
+      productName: String,
     description: String,
     unitPrice: Float,
     quantityOnHand: Int,
     ):Product
 
-    addOrder(name: String, productID:ID,username: String,):Product
-
-    addCart (orderID:ID, username:String): Order
-
-  
-  
-  }
+    addOrder(productName:String, productId:String,username:String,):Order
+    
+    addCart (productID:String, productName:String): Product
+}
   
 
 `;
@@ -104,3 +103,4 @@ module.exports = typeDefs;
 //// ask why we need auth and checkout
 // ask about cart 
 // : Auth
+// addOrder(productName:String, productId:String,username:String,):Order
