@@ -163,6 +163,11 @@ const resolvers = {
             );
         },
 
+        deleteProductCart: async (parent, { _id }, context) => {
+            const deleteProductCart = await Cart.findByIdAndDelete(_id)
+            return deleteProductCart
+        }
+
     }
 }
 

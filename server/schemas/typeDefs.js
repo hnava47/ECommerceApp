@@ -29,6 +29,7 @@ type User {
     purchaseDate: String
     products: [Product]
     user:[User]
+    cart: [Cart]
   }
 
   type Category {
@@ -104,7 +105,8 @@ type User {
     addOrder(productName:String, cartId:String,username:String,):Cart
     
     updateCart(_id: ID, orderQuantity:Int):Cart
-   
+    
+    deleteProductCart(_id:ID):Cart
 }
   
 
