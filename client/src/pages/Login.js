@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
+
 export const LoginSide = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,6 +24,7 @@ export const LoginSide = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
+    
   };
 
   return (
