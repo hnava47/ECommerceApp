@@ -2,9 +2,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import {
-  Blog,
   Checkout,
   LoginSide,
+  Profile,
   SignUp
 } from './pages';
 
@@ -21,16 +21,16 @@ export const App = () => {
           <div className="container">
             <Routes>
               <Route
+                  path='/'
+                  element={<Profile/>}
+              />
+              <Route
                 path='/login'
                 element={<LoginSide/>}
               />
               <Route
                 path='/signup'
                 element={<SignUp/>}
-              />
-              <Route
-                path='/home'
-                element={<Blog/>}
               />
               <Route
                 path='/checkout'
