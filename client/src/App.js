@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import {
   Checkout,
+  Home,
   LoginSide,
-  Profile,
   SignUp
 } from './pages';
 
@@ -22,7 +22,7 @@ export const App = () => {
             <Routes>
               <Route
                   path='/'
-                  element={<Profile/>}
+                  element={<Home/>}
               />
               <Route
                 path='/login'

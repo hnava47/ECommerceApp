@@ -62,7 +62,7 @@ const featuredPosts = [
 
 const theme = createTheme();
 
-export const Profile = () => {
+export const Home = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -85,4 +85,4 @@ export const Profile = () => {
   );
 }
 
-export default Profile;
+export default Home;
