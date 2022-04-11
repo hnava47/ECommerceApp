@@ -8,6 +8,7 @@ type User {
     username: String
     email: String
     orders: [Order]
+    carts: [Cart]
   }
 
   type Product {
@@ -37,7 +38,7 @@ type User {
   type Cart {
      _id: ID
      products: [Product]
-     order:[Order]
+     orders:[Order]
      
 
   }
@@ -89,12 +90,13 @@ type User {
     quantityOnHand: Int,
     ):Product
 
-    addOrder(name: String, productID:ID,username: String,):Product
+    addOrder(products: [ID]):Order
 
-    addCart (orderID:ID, username:String): Order
+    addCart (orders:[ID]):Cart 
 
-  
-  
+    updateProduct(_id: ID!, quantity: Int!): Product
+
+    updateCart(orders:ID,):Cart
   }
   
 

@@ -81,6 +81,7 @@ const resolvers = {
 
     },
 
+
     Mutation: {
         //sign up ;
         addUser: async (parent, args) => {
@@ -126,18 +127,46 @@ const resolvers = {
 
             })
         },
-        addOrder: async (parent, { name, productID, username }, context) => {
 
-            console.log(name);
-            return await Order.create({ name, productID, username })
+        updateProduct: async (parent, { _id, quantity }) => {
+            const decrement = Math.abs(quantity) * -1;
 
+            return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
         },
 
-        addCart: async (parent, { orderID, username }, context) => {
+        addOrder: async (parent, { carts }, context) => {
+            console.log(context.user);
+            console.log(context);
+            if (context.user) {
+                const order = new Order({ carts });
 
-            return await Cart.create({ orderID, username })
-        }
+                await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
+                return order;
+            }
+
+            // throw new AuthenticationError('Not logged in');
+        },
+
+        addCart: async (parent, { products }, context) => {
+            console.log(context.user);
+            if (context.user) {
+                const cart = new Cart({ products });
+
+                await User.findByIdAndUpdate(context.user._id, { $push: { carts: cart } })
+
+                return cart;
+            }
+            // throw new AuthorizationError('not logged in')
+        },
+
+
+
+        updateCart: async (parent, { _id }, context) => {
+            if (context.user) {
+                return await User.findByIdAndUpdate(context.user._id, arg, { new: true })
+            }
+        },
 
     }
 }
