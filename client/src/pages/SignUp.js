@@ -10,14 +10,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from '@apollo/client';
+import { Navigate } from "react-router-dom";
 import Auth from '../utils/auth'
 import { SIGNUP_MUTATION } from '../utils/mutations/createUser';
 
 const theme = createTheme();
 
 export const SignUp = () => {
-
   const [addUser, { error }] = useMutation(SIGNUP_MUTATION);
+
+  if (Auth.loggedIn()) {
+    return <Navigate to='/' />;
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
