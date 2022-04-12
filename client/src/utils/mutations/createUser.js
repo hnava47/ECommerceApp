@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const SIGNUP_MUTATION = gql`
-mutation Mutation($firstName: String!, $lastName: String!, $username: String!, $email: String!, $password: String!) {
+  mutation Mutation($firstName: String!, $lastName: String!, $username: String!, $email: String!, $password: String!) {
     addUser(firstName: $firstName, lastName: $lastName, username: $username, email: $email, password: $password) {
       user {
         username
@@ -9,4 +9,5 @@ mutation Mutation($firstName: String!, $lastName: String!, $username: String!, $
       }
       token
     }
-  }`;
+  }
+`;
