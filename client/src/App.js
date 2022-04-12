@@ -3,6 +3,8 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import {
+  Checkout,
+  Home,
   LoginSide,
   SignUp
 } from './pages';
@@ -34,12 +36,20 @@ export const App = () => {
           <div className="container">
             <Routes>
               <Route
+                  path='/'
+                  element={<Home/>}
+              />
+              <Route
                 path='/login'
                 element={<LoginSide/>}
               />
               <Route
                 path='/signup'
                 element={<SignUp/>}
+              />
+              <Route
+                path='/checkout'
+                element={<Checkout/>}
               />
             </Routes>
           </div>
