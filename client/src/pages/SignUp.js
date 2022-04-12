@@ -1,3 +1,4 @@
+import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -115,11 +116,11 @@ export const SignUp = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              {error ? (
+              {error && (
               <Grid item xs={12}>
-                error
+                <Alert severity="error">Invalid sign up - ensure fields are entered correctly</Alert>
               </Grid>
-              ) : null}
+              )}
             </Grid>
             <Button
               type="submit"
