@@ -65,10 +65,13 @@ const featuredPosts = [
 const theme = createTheme();
 
 export const Home = () => {
+<<<<<<< HEAD
   if (!Auth.loggedIn()) {
     return <Navigate to='/login' />;
   }
 
+=======
+>>>>>>> main
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
