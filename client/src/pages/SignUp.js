@@ -23,7 +23,7 @@ export const SignUp = () => {
     event.preventDefault();
     const userData = new FormData(event.currentTarget);
     try {
-      const mutationResponse = await addUser({
+      const { data } = await addUser({
         variables: {
           firstName: userData.get('firstName'),
           lastName: userData.get('lastName'),
@@ -32,8 +32,7 @@ export const SignUp = () => {
           password: userData.get('password')
         }
       });
-      const token = mutationResponse.data.addUser.token;
-      Auth.login(token);
+      Auth.login(data.addUser.token);
 
     } catch (error) {
       console.error(error);
