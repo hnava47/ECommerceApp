@@ -11,8 +11,8 @@ const resolvers = {
             return await User.find({})
         },
 
-        user: async (_root, { id }) => {
-            return await User.findById(id);
+        user: async (_root, { _id }) => {
+            return await User.findById(_id);
         },
 
         products: async () => {
@@ -27,8 +27,8 @@ const resolvers = {
             return await Order.find({})
         },
 
-        order: async (_root, { id }) => {
-            return await Order.findById(id);
+        order: async (_root, { _id }) => {
+            return await Order.findById(_id);
         },
 
         categories: async () => {
@@ -38,9 +38,17 @@ const resolvers = {
             return await Category.findById(id);
         },
 
-        cart: async () => {
+        carts: async () => {
             return await Cart.find({})
         },
+
+        cart: async (_root, { _id }) => {
+            return await Cart.findById(_id);
+        },
+
+        // cart: async (_root, { _id }) => {
+        //     return await Cart.findById(_id);
+        // },
 
         checkout: async (parent, args, context) => {
             const url = new URL(context.headers.referer).origin;
@@ -118,14 +126,10 @@ const resolvers = {
             throw new AuthorizationError('Not logged in');
         },
 
-        addProduct: async (_root, { name, description, unitPrice, quantityOnHand, }) => {
-            return await Product.create({
-                name,
-                description,
-                unitPrice,
-                quantityOnHand,
 
-            })
+        addProduct: async (parent, { productName, description, unitPrice, quantityOnHand }, context) => {
+            const product = await Product.create({ productName, description, unitPrice, quantityOnHand })
+            return product;
         },
 
         updateProduct: async (parent, { _id, quantity }) => {

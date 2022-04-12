@@ -15,7 +15,11 @@ const orderSchema = new Schema({
     username: {
         type: String,
         required: true
-    }
+    },
+
+    productName: {
+        type: String,
+    },
 
 
 });

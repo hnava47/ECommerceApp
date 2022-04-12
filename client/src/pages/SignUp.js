@@ -12,17 +12,48 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useMutation } from "@apollo/react-hooks";
+
 
 const theme = createTheme();
 
+const SIGNUP_MUTATION = gql`
+mutation Mutation($firstName: String!, $lastName: String!, $username: String!, $email: String!, $password: String!) {
+  addUser(firstName: $firstName, lastName: $lastName, username: $username, email: $email, password: $password) {
+    user {
+      username
+      firstName
+    }
+    token
+  }
+}`
+
 export const SignUp = () => {
+
+  // // Sign Up
+  // const [signUp, { data: signedUp }] = useMutation(SIGNUP_MUTATION, {
+  //   async onCompleted({ signUp }) {
+  //     const { token } = signUp;
+  //     try {
+  //       await AsyncStorage.setItem("token", token);
+  //       navigation.replace("Profile");
+  //     } catch (err) {
+  //       console.log(err.message);
+  //     }
+  //   },
+  // });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const userObj = {
       email: data.get('email'),
-      password: data.get('password'),
-    });
+      password: data.get('password')
+    };
+    
+  SIGNUP_MUTATION(userObj.email, userObj.password)
+
+
   };
 
   return (
