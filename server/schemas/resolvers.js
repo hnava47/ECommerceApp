@@ -3,7 +3,7 @@ const { User, Product, Category, Order, Cart } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
-/// ask if the ids have to match the ids in typedefs 
+/// ask if the ids have to match the ids in typedefs
 const resolvers = {
     Query: {
 
@@ -83,8 +83,8 @@ const resolvers = {
 
     Mutation: {
         //sign up ;
-        addUser: async (parent, args) => {
-            const user = await User.create(args);
+        addUser: async (parent, { firstName, lastName, username, email, password }) => {
+            const user = await User.create({ firstName, lastName, username, email, password });
             const token = signToken(user);
 
             return { token, user };
