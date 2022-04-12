@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState }from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,17 +12,35 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useMutation } from '@apollo/client';
+import { SIGNUP_MUTATION } from '../utils/mutations/createUser';
 
 const theme = createTheme();
 
 export const SignUp = () => {
-  const handleSubmit = (event) => {
+
+  const [addUser, { error }] = useMutation(SIGNUP_MUTATION);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const userData = new FormData(event.currentTarget);
+    try {
+      const user = await addUser({
+        variables: {
+          firstName: userData.get('firstName'),
+          lastName: userData.get('lastName'),
+          username: userData.get('username'),
+          email: userData.get('email'),
+          password: userData.get('password')
+        }
+      });
+
+      console.log(user);
+
+      // window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -74,6 +92,16 @@ export const SignUp = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
                 />
               </Grid>
               <Grid item xs={12}>
