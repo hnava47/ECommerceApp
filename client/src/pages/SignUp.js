@@ -117,9 +117,9 @@ export const SignUp = () => {
                 />
               </Grid>
               {error && (
-              <Grid item xs={12}>
-                <Alert severity="error">Invalid sign up - ensure fields are entered correctly</Alert>
-              </Grid>
+                <Grid item xs={12}>
+                  <Alert severity="error">Invalid sign up - ensure fields are entered correctly</Alert>
+                </Grid>
               )}
             </Grid>
             <Button
