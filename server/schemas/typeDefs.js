@@ -59,7 +59,7 @@ type User {
     categories: [Category]
     category(_id: ID!): Category
     checkout(products: [ID]!): Checkout
-    cart: Cart
+    cart: [Cart]
   }
 
   type Mutation {

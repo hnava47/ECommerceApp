@@ -40,7 +40,7 @@ const resolvers = {
 
         cart: async (parent, _args, context) => {
             const username = context.user.username;
-            return await Cart.findOne({ username });
+            return await Cart.find({ username });
         },
 
         checkout: async (parent, args, context) => {
