@@ -29,9 +29,9 @@ const sections = [
 const mainFeaturedPost = {
   title: 'Spring forward with fresh designs',
   description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    "Brining you the best prices and widest selection of furniture and home decor!",
   image: 'https://www.absolunet.com/hubfs/Website%20Content/Industries/Clients%20Proof/Structube-1.jpg',
-  imageText: 'main image description',
+  imageText: 'Sample living room',
 };
 
 const featuredPosts = [

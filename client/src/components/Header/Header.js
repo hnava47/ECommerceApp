@@ -53,7 +53,9 @@ export const Header = (props) => {
 
   return (
     <Fragment>
-      <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Toolbar
+        sx={{ borderBottom: 1, borderColor: 'divider' }}
+      >
         <Typography
           component="h2"
           variant="h5"
