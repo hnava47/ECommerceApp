@@ -1,3 +1,4 @@
+import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,20 +11,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from '@apollo/client';
+import { Navigate } from "react-router-dom";
 import Auth from '../utils/auth'
-import { SIGNUP_MUTATION } from '../utils/mutations/createUser';
+import { SIGNUP_MUTATION } from '../utils/mutations';
 
 const theme = createTheme();
 
 export const SignUp = () => {
-
   const [addUser, { error }] = useMutation(SIGNUP_MUTATION);
+
+  if (Auth.loggedIn()) {
+    return <Navigate to='/' />;
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userData = new FormData(event.currentTarget);
     try {
-      const mutationResponse = await addUser({
+      const { data } = await addUser({
         variables: {
           firstName: userData.get('firstName'),
           lastName: userData.get('lastName'),
@@ -32,9 +37,8 @@ export const SignUp = () => {
           password: userData.get('password')
         }
       });
-      const token = mutationResponse.data.addUser.token;
-      Auth.login(token);
-
+      
+      Auth.login(data.addUser.token);
     } catch (error) {
       console.error(error);
     }
@@ -112,11 +116,11 @@ export const SignUp = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              {error ? (
-              <Grid item xs={12}>
-                error
-              </Grid>
-              ) : null}
+              {error && (
+                <Grid item xs={12}>
+                  <Alert severity="error">Invalid sign up - ensure fields are entered correctly</Alert>
+                </Grid>
+              )}
             </Grid>
             <Button
               type="submit"
