@@ -36,8 +36,16 @@ type User {
 
   type Cart {
      _id: ID
-     products: [Product]
+     productId: Product
+     orderQuantity: Int
      username: String
+  }
+
+  type addCart {
+    _id: ID
+    productId: ID
+    orderQuantity: Int
+    username: String
   }
 
   type Checkout {
@@ -88,7 +96,9 @@ type User {
 
     addOrder(name: String, productID:ID,username: String,):Product
 
-    addCart (orderID:ID, username:String): Order
+    addCart(
+      productId:ID!,
+      username:String!): addCart
 
 
 

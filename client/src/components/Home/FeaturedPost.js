@@ -5,9 +5,15 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export const FeaturedPost = (props) => {
   const { post } = props;
+
+  const print = () => {
+    console.log(post.title)
+  }
 
   return (
     <Grid item xs={12} md={6}>
@@ -23,9 +29,9 @@ export const FeaturedPost = (props) => {
             <Typography variant="subtitle1" paragraph>
               {post.description}
             </Typography>
-            <Typography variant="subtitle1" color="primary">
-              Continue reading...
-            </Typography>
+            <IconButton color="secondary" aria-label="add to shopping cart" onClick={print}>
+              <AddShoppingCartIcon />
+            </IconButton>
           </CardContent>
           <CardMedia
             component="img"

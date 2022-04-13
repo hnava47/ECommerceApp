@@ -40,7 +40,7 @@ const resolvers = {
 
         cart: async (parent, _args, context) => {
             const username = context.user.username;
-            return await Cart.find({ username });
+            return await Cart.find({ username }).populate('productId');
         },
 
         checkout: async (parent, args, context) => {
@@ -134,9 +134,8 @@ const resolvers = {
 
         },
 
-        addCart: async (parent, { orderID, username }, context) => {
-
-            return await Cart.create({ orderID, username })
+        addCart: async (parent, { productId, username }, context) => {
+            return await Cart.create({ productId, username })
         }
 
 

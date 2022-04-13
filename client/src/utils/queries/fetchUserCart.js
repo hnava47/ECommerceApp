@@ -4,10 +4,11 @@ export const USER_CART = gql`
     query cart {
         cart {
             _id
-            products {
+            productId {
                 name
                 unitPrice
             }
+            orderQuantity
             username
         }
     }
