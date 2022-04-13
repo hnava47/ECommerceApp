@@ -38,8 +38,9 @@ const resolvers = {
             return await Category.findById(id);
         },
 
-        cart: async () => {
-            return await Cart.find({})
+        cart: async (parent, _args, context) => {
+            const username = context.user.username;
+            return await Cart.findOne({ username });
         },
 
         checkout: async (parent, args, context) => {

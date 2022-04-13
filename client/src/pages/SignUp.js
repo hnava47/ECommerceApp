@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from '@apollo/client';
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 import Auth from '../utils/auth'
 import { SIGNUP_MUTATION } from '../utils/mutations';
 
@@ -37,7 +37,7 @@ export const SignUp = () => {
           password: userData.get('password')
         }
       });
-      
+
       Auth.login(data.addUser.token);
     } catch (error) {
       console.error(error);
