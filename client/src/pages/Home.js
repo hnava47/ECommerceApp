@@ -2,8 +2,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
+import { USER_CART } from '../utils/queries'
 
 import {
     Header,
@@ -65,9 +67,12 @@ const featuredPosts = [
 const theme = createTheme();
 
 export const Home = () => {
+  const { data } = useQuery(USER_CART);
+
   if (!Auth.loggedIn()) {
     return <Navigate to='/login' />;
   }
+
 
   return (
     <ThemeProvider theme={theme}>

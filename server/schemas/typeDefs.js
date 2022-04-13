@@ -37,9 +37,7 @@ type User {
   type Cart {
      _id: ID
      products: [Product]
-     order:[Order]
-
-
+     username: String
   }
 
   type Checkout {
@@ -61,7 +59,7 @@ type User {
     categories: [Category]
     category(_id: ID!): Category
     checkout(products: [ID]!): Checkout
-    cart:[Cart]
+    cart: Cart
   }
 
   type Mutation {
