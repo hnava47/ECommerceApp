@@ -1,9 +1,8 @@
+import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -11,23 +10,36 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Navigate } from "react-router-dom";
+import { useMutation } from '@apollo/client';
+import { Navigate } from 'react-router-dom';
 import Auth from '../utils/auth';
+import { LOGIN_USER } from '../utils/mutations'
 
 const theme = createTheme();
 
 export const LoginSide = () => {
+  const [Login, { error }] = useMutation(LOGIN_USER);
+
   if (Auth.loggedIn()) {
     return <Navigate to='/' />;
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const userData = new FormData(event.currentTarget);
+
+    try {
+      const { data } = await Login({
+        variables: {
+          email: userData.get('email'),
+          password: userData.get('password')
+        }
+      });
+
+      Auth.login(data.login.token);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -85,10 +97,11 @@ export const LoginSide = () => {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              {error && (
+                <Grid item xs={12}>
+                  <Alert severity="error">Invalid login - ensure fields are entered correctly</Alert>
+                </Grid>
+              )}
               <Button
                 type="submit"
                 fullWidth
@@ -98,11 +111,6 @@ export const LoginSide = () => {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
                   <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}

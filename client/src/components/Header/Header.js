@@ -19,10 +19,10 @@ export const Header = (props) => {
   return (
     <Fragment>
       <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <IconButton>
-          <LogoutIcon
-            onClick={logout}
-          />
+        <IconButton
+          onClick={logout}
+        >
+          <LogoutIcon/>
         </IconButton>
         <Typography
           component="h2"

@@ -13,7 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from '@apollo/client';
 import { Navigate } from "react-router-dom";
 import Auth from '../utils/auth'
-import { SIGNUP_MUTATION } from '../utils/mutations/createUser';
+import { SIGNUP_MUTATION } from '../utils/mutations';
 
 const theme = createTheme();
 
@@ -37,8 +37,8 @@ export const SignUp = () => {
           password: userData.get('password')
         }
       });
+      
       Auth.login(data.addUser.token);
-
     } catch (error) {
       console.error(error);
     }
