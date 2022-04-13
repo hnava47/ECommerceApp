@@ -7,6 +7,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { useMutation } from '@apollo/client';
+import { ADD_CART } from '../../utils/mutations';
 
 export const FeaturedPost = (props) => {
   const { post } = props;
