@@ -14,7 +14,9 @@ import { USER_CART } from '../../utils/queries';
 import { UPDATE_CART, REMOVE_CART } from '../../utils/mutations'
 
 export const CartForm = () => {
-    const { data, loading, refetch } = useQuery(USER_CART);
+    const { data, loading, refetch } = useQuery(USER_CART, {
+        fetchPolicy: "network-only",
+      });
     const [updateCart] = useMutation((UPDATE_CART));
     const [removeCart] = useMutation((REMOVE_CART));
     const [cartData, setCartData] = useState();

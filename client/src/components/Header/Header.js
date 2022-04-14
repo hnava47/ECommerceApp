@@ -13,7 +13,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import { Link as RouteLink } from 'react-router-dom';
 import Auth from '../../utils/auth';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -59,8 +58,8 @@ export const Header = (props) => {
         </Typography>
         <IconButton
           aria-label="cart"
-          component={RouteLink}
-          to='/checkout'
+          component='a'
+          href='/checkout'
         >
           <StyledBadge badgeContent={cartCount} color="secondary">
             <ShoppingCartOutlinedIcon/>
@@ -85,8 +84,8 @@ export const Header = (props) => {
           }}
         >
           <MenuItem
-            component={RouteLink}
-            to='/checkout'
+            component='a'
+            href='/checkout'
           >
             My orders
           </MenuItem>

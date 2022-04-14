@@ -40,8 +40,12 @@ const mainFeaturedPost = {
 const theme = createTheme();
 
 export const Home = () => {
-  const allProducts = useQuery(ALL_PRODUCTS);
-  const userCart = useQuery(USER_CART);
+  const allProducts = useQuery(ALL_PRODUCTS, {
+    fetchPolicy: "network-only",
+  });
+  const userCart = useQuery(USER_CART, {
+    fetchPolicy: "network-only",
+  });
   const [count, setCount] = useState();
   const [products, setProducts] = useState();
 

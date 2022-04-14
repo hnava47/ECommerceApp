@@ -52,7 +52,7 @@ export const LoginSide = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://wallpaperaccess.com/full/2593208.jpg)',
+            backgroundImage: 'url(https://images.squarespace-cdn.com/content/v1/56fd7b40b09f958c576a6187/1517075852084-OIQA1W563XTDYIGB1MYF/how+to+arrange+furniture+in+a+narrow+living+room)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
