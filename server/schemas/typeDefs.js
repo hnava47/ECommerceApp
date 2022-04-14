@@ -94,7 +94,11 @@ type User {
 
     addOrder(name: String, productID:ID,username: String,):Product
 
-    addCart(productId:ID!): addCart
+    addCart(productId: ID!): addCart
+
+    updateCart(
+      id: ID!
+      orderQuantity: Int!): addCart
   }
 `;
 

@@ -14,19 +14,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
     AddressForm,
+    CartForm,
     PaymentForm,
     Review
-} from '../components'
+} from '../components/Checkout'
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Cart details', 'Shipping address', 'Payment details', 'Review your order'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <CartForm />;
     case 1:
-      return <PaymentForm />;
+      return <AddressForm />;
     case 2:
+      return <PaymentForm />;
+    case 3:
       return <Review />;
     default:
       throw new Error('Unknown step');

@@ -27,7 +27,7 @@ const resolvers = {
             const username = context.user.username;
             return await Order.find({ username }).populate('productId');
         },
-        
+
         categories: async () => {
             return await Category.find({});
         },
@@ -134,9 +134,14 @@ const resolvers = {
         addCart: async (parent, { productId }, context) => {
             const username = context.user.username;
             return await Cart.create({ productId, username })
+        },
+        updateCart: async(parent, { id, orderQuantity }, context) => {
+            return await Cart.findByIdAndUpdate(
+                id,
+                { orderQuantity },
+                { new: true }
+            );
         }
-
-
     }
 }
 
