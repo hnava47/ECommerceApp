@@ -17,7 +17,7 @@ type User {
     quantityOnHand: Int
     unitPrice: Float
     category: Category
-    user:[User]!
+    
   }
 
 
@@ -25,8 +25,9 @@ type User {
   type Order {
     _id: ID
     purchaseDate: String
-    products: [Product]
-    user:[User]
+    productId: Product
+    orderQuantity: Int
+    username: String
   }
 
   type Category {
@@ -63,7 +64,6 @@ type User {
     products(category: ID, name: String): [Product]
     product(_id: ID!): Product
     orders: [Order]
-    order(_id: ID!): Order
     categories: [Category]
     category(_id: ID!): Category
     checkout(products: [ID]!): Checkout
