@@ -9,6 +9,7 @@ export const USER_CART = gql`
                 productId {
                     name
                     unitPrice
+                    description
                 }
                 orderQuantity
                 orderPrice

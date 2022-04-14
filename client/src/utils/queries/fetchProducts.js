@@ -2,13 +2,13 @@ import { gql } from '@apollo/client';
 
 export const ALL_PRODUCTS = gql`
     query product {
-        product {
+        products {
             _id
             name
             unitPrice
             description
             image
-            category {
+            categoryId {
                 name
             }
         }

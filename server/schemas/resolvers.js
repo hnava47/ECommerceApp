@@ -16,11 +16,7 @@ const resolvers = {
         },
 
         products: async () => {
-            return await Product.find({});
-        },
-
-        product: async (_root, id) => {
-            return await Product.findById(id);
+            return await Product.find().populate('categoryId');
         },
 
         orders: async (_root, _args, context) => {

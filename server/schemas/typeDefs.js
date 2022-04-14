@@ -17,7 +17,7 @@ type User {
     quantityOnHand: Int
     unitPrice: Float
     image: String
-    category: Category
+    categoryId: Category
   }
 
   type Order {
@@ -66,8 +66,7 @@ type User {
   type Query {
     users: [User]
     user(_id: ID): Order
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
+    products: [Product]
     orders: [Order]
     categories: [Category]
     category(_id: ID!): Category

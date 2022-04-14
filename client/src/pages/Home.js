@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
-import { USER_CART } from '../utils/queries';
+import { USER_CART, ALL_PRODUCTS } from '../utils/queries';
 
 import {
     Header,
@@ -37,47 +37,25 @@ const mainFeaturedPost = {
   imageText: 'Sample living room',
 };
 
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    id: '62578866fee12d7430094e82',
-    date: 'Nov 12',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    id: '62578866fee12d7430094e82',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  },
-  {
-    title: 'TEST',
-    id: '62578866fee12d7430094e82',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  },
-];
-
 const theme = createTheme();
 
 export const Home = () => {
-  const { data, loading } = useQuery(USER_CART);
+  const allProducts = useQuery(ALL_PRODUCTS);
+  const userCart = useQuery(USER_CART);
   const [count, setCount] = useState();
+  const [products, setProducts] = useState();
 
   useEffect(() => {
-    if(loading === false && data) {
-      setCount(data.cartCheckout.cart.length);
+    if(userCart.loading === false && userCart.data) {
+      setCount(userCart.data.cartCheckout.cart.length);
     }
-  }, [loading, data]);
+  }, [userCart.loading, userCart.data]);
+
+  useEffect(() => {
+    if(allProducts.loading === false && allProducts.data) {
+      setProducts(allProducts.data.products);
+    }
+  }, [allProducts.loading, allProducts.data]);
 
   const addToCart = () => {
     setCount(count + 1);
@@ -100,11 +78,13 @@ export const Home = () => {
           <MainFeaturedPost
             post={mainFeaturedPost}
           />
-          <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} addToCart={addToCart} />
-            ))}
-          </Grid>
+          {products && (
+            <Grid container spacing={4}>
+              {products.map((product) => (
+                <FeaturedPost key={product._id} post={product} addToCart={addToCart} />
+              ))}
+            </Grid>
+          )}
         </main>
       </Container>
       <Footer
