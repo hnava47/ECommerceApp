@@ -1,4 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -9,11 +11,12 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useQuery, useMutation } from '@apollo/client';
 import { USER_CART } from '../../utils/queries';
-import { UPDATE_CART } from '../../utils/mutations'
+import { UPDATE_CART, REMOVE_CART } from '../../utils/mutations'
 
 export const CartForm = () => {
     const { data, loading, refetch } = useQuery(USER_CART);
     const [updateCart] = useMutation((UPDATE_CART));
+    const [removeCart] = useMutation((REMOVE_CART));
     const [cartData, setCartData] = useState();
 
     useEffect(() => {
@@ -37,6 +40,18 @@ export const CartForm = () => {
         }
     };
 
+    const removeCartProduct = async (id) => {
+        try {
+            await removeCart({
+                variables: { id }
+            });
+
+            await refetch();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <Fragment>
             <Typography variant="h6" gutterBottom>
@@ -51,6 +66,7 @@ export const CartForm = () => {
                         <ButtonGroup size="small">
                             <Button
                                 aria-label="reduce"
+                                disabled={cart.orderQuantity<2}
                                 onClick={() => {
                                     updateQuantity(cart._id, cart.orderQuantity-1);
                                 }}
@@ -69,6 +85,14 @@ export const CartForm = () => {
                                 <AddIcon fontSize="small" />
                             </Button>
                         </ButtonGroup>
+                        <IconButton
+                            sx={{mx:1}}
+                            onClick={() => {
+                                removeCartProduct(cart._id);
+                            }}
+                        >
+                            <DeleteIcon/>
+                        </IconButton>
                     </ListItem>
                 ))}
 

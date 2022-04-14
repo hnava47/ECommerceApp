@@ -141,6 +141,9 @@ const resolvers = {
                 { orderQuantity },
                 { new: true }
             );
+        },
+        removeCart: async(parent, { id }, context) => {
+            return await Cart.findByIdAndDelete(id);
         }
     }
 }

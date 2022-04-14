@@ -99,6 +99,9 @@ type User {
     updateCart(
       id: ID!
       orderQuantity: Int!): addCart
+
+    removeCart(
+      id: ID!): addCart
   }
 `;
 
