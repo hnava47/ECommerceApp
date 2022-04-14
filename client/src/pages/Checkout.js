@@ -9,6 +9,8 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Navigate } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 import {
     AddressForm,
@@ -41,7 +43,15 @@ const theme = createTheme();
 export const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const handleNext = (event) => {
+  if (!Auth.loggedIn()) {
+    return <Navigate to='/login' />;
+  }
+
+  const handleNext = () => {
+    if (activeStep + 1 === steps.length) {
+      localStorage.removeItem('cart');
+      localStorage.removeItem('totalOrderPrice');
+    };
     setActiveStep(activeStep + 1);
   };
 
@@ -75,6 +85,15 @@ export const Checkout = () => {
                   confirmation, and will send you an update when your order has
                   shipped.
                 </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button
+                      component='a'
+                      href='/'
+                      sx={{ mt: 3 }}
+                    >
+                        Back Home
+                  </Button>
+                </Box>
               </Fragment>
             ) : (
               <Fragment>
@@ -86,7 +105,7 @@ export const Checkout = () => {
                     sx={{ mt: 3, ml: 1 }}
                     onClick={() => {
                       localStorage.removeItem('cart');
-                      localStorage.removeItem('totalPrice');
+                      localStorage.removeItem('totalOrderPrice');
                     }}
                   >
                       Cancel
@@ -96,7 +115,6 @@ export const Checkout = () => {
                       Back
                     </Button>
                   )}
-
                   <Button
                     variant="contained"
                     onClick={handleNext}
