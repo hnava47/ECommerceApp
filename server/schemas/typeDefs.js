@@ -16,11 +16,9 @@ type User {
     description: String
     quantityOnHand: Int
     unitPrice: Float
+    image: Sting
     category: Category
-    
   }
-
-
 
   type Order {
     _id: ID
@@ -97,15 +95,7 @@ type User {
     addOrder(name: String, productID:ID,username: String,):Product
 
     addCart(productId:ID!): addCart
-
-
-
   }
-
-
 `;
 
 module.exports = typeDefs;
-//// ask why we need auth and checkout
-// ask about cart
-// : Auth

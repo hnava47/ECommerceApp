@@ -7,6 +7,7 @@ export const ALL_PRODUCTS = gql`
             name
             unitPrice
             description
+            image
             category {
                 name
             }
