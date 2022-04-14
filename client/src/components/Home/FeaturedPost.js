@@ -13,8 +13,22 @@ import { ADD_CART } from '../../utils/mutations';
 export const FeaturedPost = (props) => {
   const { post } = props;
 
+  // const [addCart] = useMutation(ADD_CART);
+
+  // const handleAddCart = async () => {
+  //   try {
+  //     await addCart({
+  //       variables: {
+  //         productId: post.id
+  //       }
+  //     })
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
   const print = () => {
-    console.log(post.title)
+    console.log(post.id);
   }
 
   return (

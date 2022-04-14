@@ -37,6 +37,7 @@ const mainFeaturedPost = {
 const featuredPosts = [
   {
     title: 'Featured post',
+    id: '625756c7fee12d7430094e61',
     date: 'Nov 12',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
@@ -45,6 +46,7 @@ const featuredPosts = [
   },
   {
     title: 'Post title',
+    id: '625756c7fee12d7430094e61',
     date: 'Nov 11',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
@@ -53,6 +55,7 @@ const featuredPosts = [
   },
   {
     title: 'TEST',
+    id: '625756c7fee12d7430094e61',
     date: 'Nov 11',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',

@@ -134,7 +134,8 @@ const resolvers = {
 
         },
 
-        addCart: async (parent, { productId, username }, context) => {
+        addCart: async (parent, { productId }, context) => {
+            const username = context.user.username;
             return await Cart.create({ productId, username })
         }
 

@@ -11,13 +11,10 @@ const orderSchema = new Schema({
             ref: 'Product'
         }
     ],
-
     username: {
         type: String,
         required: true
     }
-
-
 });
 
 const Order = model('Order', orderSchema);

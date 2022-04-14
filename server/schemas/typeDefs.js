@@ -96,9 +96,7 @@ type User {
 
     addOrder(name: String, productID:ID,username: String,):Product
 
-    addCart(
-      productId:ID!,
-      username:String!): addCart
+    addCart(productId:ID!): addCart
 
 
 
