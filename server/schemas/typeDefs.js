@@ -25,9 +25,9 @@ type User {
   type Order {
     _id: ID
     purchaseDate: String
-    product: Product
-    orderQuanity: Int
-    user: String
+    productId: Product
+    orderQuantity: Int
+    username: String
   }
 
   type Category {

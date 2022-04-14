@@ -25,9 +25,9 @@ const resolvers = {
 
         orders: async (_root, _args, context) => {
             const username = context.user.username;
-            return await Order.find({ username});
+            return await Order.find({ username }).populate('productId');
         },
-
+        
         categories: async () => {
             return await Category.find({});
         },
