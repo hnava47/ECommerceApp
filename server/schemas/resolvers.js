@@ -23,12 +23,9 @@ const resolvers = {
             return await Product.findById(id);
         },
 
-        orders: async () => {
-            return await Order.find({})
-        },
-
-        order: async (_root, { id }) => {
-            return await Order.findById(id);
+        orders: async (_root, _args, context) => {
+            const username = context.user.username;
+            return await Order.find({ username});
         },
 
         categories: async () => {
