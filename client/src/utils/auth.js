@@ -13,7 +13,7 @@ class AuthService {
   isTokenExpired(token) {
     const decoded = decode(token);
     if (decoded.exp < Date.now() / 1000) {
-      localStorage.removeItem('id_token');
+      this.logout();
       return true;
     }
     return false;
@@ -30,6 +30,8 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('totalPrice');
     window.location.reload();
   }
 }

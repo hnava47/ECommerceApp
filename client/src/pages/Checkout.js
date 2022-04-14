@@ -28,7 +28,9 @@ function getStepContent(step) {
     case 2:
       return <PaymentForm />;
     case 3:
-      return <Review />;
+      const cartData = JSON.parse(localStorage.getItem('cart'));
+      const totalOrderPrice = JSON.parse(localStorage.getItem('totalOrderPrice'));
+      return <Review cartData={cartData} totalOrderPrice={totalOrderPrice}/>;
     default:
       throw new Error('Unknown step');
   }
@@ -39,7 +41,7 @@ const theme = createTheme();
 export const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const handleNext = () => {
+  const handleNext = (event) => {
     setActiveStep(activeStep + 1);
   };
 
@@ -82,6 +84,10 @@ export const Checkout = () => {
                     component='a'
                     href='/'
                     sx={{ mt: 3, ml: 1 }}
+                    onClick={() => {
+                      localStorage.removeItem('cart');
+                      localStorage.removeItem('totalPrice');
+                    }}
                   >
                       Cancel
                   </Button>

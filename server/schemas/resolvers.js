@@ -3,7 +3,6 @@ const { User, Product, Category, Order, Cart } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
-/// ask if the ids have to match the ids in typedefs
 const resolvers = {
     Query: {
 
@@ -25,7 +24,7 @@ const resolvers = {
         },
 
         categories: async () => {
-            return await Category.find({});
+            return await Category.find({}).sort('name');
         },
         category: async (_root, { id }) => {
             return await Category.findById(id);

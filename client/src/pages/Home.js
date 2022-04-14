@@ -71,7 +71,7 @@ export const Home = () => {
       <Container maxWidth="lg">
         {categories && (
           <Header
-            title="E-Commerce"
+            title="Furniture E-Commerce"
             sections={categories}
             cartCount={count}
           />

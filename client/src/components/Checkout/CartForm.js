@@ -26,6 +26,8 @@ export const CartForm = () => {
         if(loading === false && data) {
             setCartData(data.cartCheckout.cart);
             setTotalCartCost(data.cartCheckout.totalPrice);
+            localStorage.setItem('cart', JSON.stringify(data.cartCheckout.cart));
+            localStorage.setItem('totalOrderPrice', JSON.stringify(data.cartCheckout.totalPrice));
         }
     }, [loading, data]);
 
