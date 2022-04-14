@@ -1,9 +1,12 @@
+import { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Navigate } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
+import { USER_CART } from '../utils/queries';
 
 import {
     Header,
@@ -37,7 +40,7 @@ const mainFeaturedPost = {
 const featuredPosts = [
   {
     title: 'Featured post',
-    id: '625756c7fee12d7430094e61',
+    id: '62578866fee12d7430094e82',
     date: 'Nov 12',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
@@ -46,7 +49,7 @@ const featuredPosts = [
   },
   {
     title: 'Post title',
-    id: '625756c7fee12d7430094e61',
+    id: '62578866fee12d7430094e82',
     date: 'Nov 11',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
@@ -55,7 +58,7 @@ const featuredPosts = [
   },
   {
     title: 'TEST',
-    id: '625756c7fee12d7430094e61',
+    id: '62578866fee12d7430094e82',
     date: 'Nov 11',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
@@ -67,21 +70,35 @@ const featuredPosts = [
 const theme = createTheme();
 
 export const Home = () => {
+  const { data, loading } = useQuery(USER_CART);
+  const [count, setCount] = useState();
+
+  useEffect(() => {
+    if(loading === false && data) {
+      setCount(data.cart.length);
+    }
+  }, [loading, data])
+
   if (!Auth.loggedIn()) {
     return <Navigate to='/login' />;
   }
-
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="E-Commerce" sections={sections} />
+        <Header
+          title="E-Commerce"
+          sections={sections}
+          cartCount={count}
+        />
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
+          <MainFeaturedPost
+            post={mainFeaturedPost}
+          />
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
+              <FeaturedPost key={post.title} post={post} cartCount={count} />
             ))}
           </Grid>
         </main>

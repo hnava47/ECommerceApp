@@ -11,24 +11,20 @@ import { useMutation } from '@apollo/client';
 import { ADD_CART } from '../../utils/mutations';
 
 export const FeaturedPost = (props) => {
-  const { post } = props;
+  const { post, cartCount } = props;
+  const [addCart] = useMutation(ADD_CART);
 
-  // const [addCart] = useMutation(ADD_CART);
+  const handleAddCart = async () => {
+    try {
+      await addCart({
+        variables: {
+          productId: post.id
+        }
+      });
 
-  // const handleAddCart = async () => {
-  //   try {
-  //     await addCart({
-  //       variables: {
-  //         productId: post.id
-  //       }
-  //     })
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  const print = () => {
-    console.log(post.id);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -45,7 +41,7 @@ export const FeaturedPost = (props) => {
             <Typography variant="subtitle1" paragraph>
               {post.description}
             </Typography>
-            <IconButton color="secondary" aria-label="add to shopping cart" onClick={print}>
+            <IconButton color="secondary" aria-label="add to shopping cart" onClick={handleAddCart}>
               <AddShoppingCartIcon />
             </IconButton>
           </CardContent>

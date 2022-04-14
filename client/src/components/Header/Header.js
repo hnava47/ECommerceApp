@@ -14,9 +14,7 @@ import Logout from '@mui/icons-material/Logout';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Link as RouteLink } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import Auth from '../../utils/auth';
-import { USER_CART } from '../../utils/queries';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -28,14 +26,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export const Header = (props) => {
-  let cartNumber;
-  const { sections, title } = props;
-
-  const { data } = useQuery(USER_CART);
-
-  if (data) {
-    cartNumber = data.cart.length;
-  }
+  const { sections, title, cartCount } = props;
 
   const logout = (event) => {
     event.preventDefault();
@@ -71,7 +62,7 @@ export const Header = (props) => {
           component={RouteLink}
           to='/checkout'
         >
-          <StyledBadge badgeContent={cartNumber} color="secondary">
+          <StyledBadge badgeContent={cartCount} color="secondary">
             <ShoppingCartOutlinedIcon/>
           </StyledBadge>
         </IconButton>
