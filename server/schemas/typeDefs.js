@@ -16,6 +16,7 @@ type User {
     description: String
     quantityOnHand: Int
     unitPrice: Float
+    image: String
     category: Category
     user:[User]!
   }
