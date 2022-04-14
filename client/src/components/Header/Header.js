@@ -13,10 +13,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import { Link as RouteLink } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import Auth from '../../utils/auth';
-import { USER_CART } from '../../utils/queries';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -28,14 +25,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export const Header = (props) => {
-  let cartNumber;
-  const { sections, title } = props;
-
-  const { data } = useQuery(USER_CART);
-
-  if (data) {
-    cartNumber = data.cart.length;
-  }
+  const { sections, title, cartCount } = props;
 
   const logout = (event) => {
     event.preventDefault();
@@ -53,7 +43,9 @@ export const Header = (props) => {
 
   return (
     <Fragment>
-      <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Toolbar
+        sx={{ borderBottom: 1, borderColor: 'divider' }}
+      >
         <Typography
           component="h2"
           variant="h5"
@@ -66,10 +58,10 @@ export const Header = (props) => {
         </Typography>
         <IconButton
           aria-label="cart"
-          component={RouteLink}
-          to='/checkout'
+          component='a'
+          href='/checkout'
         >
-          <StyledBadge badgeContent={cartNumber} color="secondary">
+          <StyledBadge badgeContent={cartCount} color="secondary">
             <ShoppingCartOutlinedIcon/>
           </StyledBadge>
         </IconButton>
@@ -92,8 +84,8 @@ export const Header = (props) => {
           }}
         >
           <MenuItem
-            component={RouteLink}
-            to='/checkout'
+            component='a'
+            href='/checkout'
           >
             My orders
           </MenuItem>
@@ -117,12 +109,12 @@ export const Header = (props) => {
           <Link
             color="inherit"
             noWrap
-            key={section.title}
+            key={section.name}
             variant="body2"
             href={section.url}
             sx={{ p: 1, flexShrink: 0 }}
           >
-            {section.title}
+            {section.name}
           </Link>
         ))}
       </Toolbar>
@@ -133,8 +125,7 @@ export const Header = (props) => {
 Header.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
     }),
   ).isRequired,
   title: PropTypes.string.isRequired,

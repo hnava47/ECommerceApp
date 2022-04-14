@@ -18,19 +18,14 @@ module.exports = {
         try {
             const { data } = jwt.verify(token, process.env.SECRET_JWT, { maxAge: expiration });
             req.user = data;
-            return req;
         } catch (error) {
             console.log(error)
-            return req;
-
         }
 
-
-        // return req;
+        return req;
     },
     signToken: function ({ username, email, _id }) {
         const payload = { username, email, _id };
-
         return jwt.sign({ data: payload }, process.env.SECRET_JWT, { expiresIn: expiration });
     },
 };

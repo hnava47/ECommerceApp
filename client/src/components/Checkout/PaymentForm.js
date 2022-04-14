@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 export const PaymentForm = () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
@@ -60,7 +60,7 @@ export const PaymentForm = () => {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

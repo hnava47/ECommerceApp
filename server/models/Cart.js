@@ -16,6 +16,15 @@ const cartSchema = new Schema({
         required: true,
         index: true
     }
+},
+{
+    toJSON: {
+        virtuals: true
+    }
+});
+
+cartSchema.virtual('orderPrice').get(function() {
+    return `${this.orderQuantity}`*`${this.productId.unitPrice}`;
 });
 
 const Cart = model('Cart', cartSchema);

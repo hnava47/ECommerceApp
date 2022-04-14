@@ -16,11 +16,9 @@ type User {
     description: String
     quantityOnHand: Int
     unitPrice: Float
-    category: Category
-    
+    image: String
+    categoryId: Category
   }
-
-
 
   type Order {
     _id: ID
@@ -37,12 +35,27 @@ type User {
 
   type Cart {
      _id: ID
-     products: [Product]
+     productId: Product
+     orderQuantity: Int
      username: String
+     orderPrice: Float
+  }
+
+  type mutationCart {
+    _id: ID
+    productId: ID
+    orderQuantity: Int
+    username: String
+    orderPrice: Float
   }
 
   type Checkout {
     session: ID
+  }
+
+  type cartCheckout {
+    cart: [Cart]
+    totalPrice: Float
   }
 
   type Auth {
@@ -53,13 +66,12 @@ type User {
   type Query {
     users: [User]
     user(_id: ID): Order
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
+    products: [Product]
     orders: [Order]
     categories: [Category]
     category(_id: ID!): Category
     checkout(products: [ID]!): Checkout
-    cart: [Cart]
+    cartCheckout: cartCheckout
   }
 
   type Mutation {
@@ -88,16 +100,15 @@ type User {
 
     addOrder(name: String, productID:ID,username: String,):Product
 
-    addCart (orderID:ID, username:String): Order
+    addCart(productId: ID!): mutationCart
 
+    updateCart(
+      id: ID!
+      orderQuantity: Int!): mutationCart
 
-
+    removeCart(
+      id: ID!): mutationCart
   }
-
-
 `;
 
 module.exports = typeDefs;
-//// ask why we need auth and checkout
-// ask about cart
-// : Auth

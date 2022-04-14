@@ -3,7 +3,6 @@ const { User, Product, Category, Order, Cart } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
-/// ask if the ids have to match the ids in typedefs
 const resolvers = {
     Query: {
 
@@ -16,28 +15,29 @@ const resolvers = {
         },
 
         products: async () => {
-            return await Product.find({});
-        },
-
-        product: async (_root, id) => {
-            return await Product.findById(id);
+            return await Product.find().populate('categoryId');
         },
 
         orders: async (_root, _args, context) => {
             const username = context.user.username;
             return await Order.find({ username }).populate('productId');
         },
-        
+
         categories: async () => {
-            return await Category.find({});
+            return await Category.find({}).sort('name');
         },
         category: async (_root, { id }) => {
             return await Category.findById(id);
         },
 
-        cart: async (parent, _args, context) => {
+        cartCheckout: async (parent, _args, context) => {
+            let totalPrice = 0;
             const username = context.user.username;
-            return await Cart.find({ username });
+            const cart = await Cart.find({ username }).populate('productId');
+            cart.forEach((value) => {
+                totalPrice += value.orderPrice;
+            })
+            return {totalPrice, cart};
         },
 
         checkout: async (parent, args, context) => {
@@ -131,12 +131,20 @@ const resolvers = {
 
         },
 
-        addCart: async (parent, { orderID, username }, context) => {
-
-            return await Cart.create({ orderID, username })
+        addCart: async (parent, { productId }, context) => {
+            const username = context.user.username;
+            return await Cart.create({ productId, username })
+        },
+        updateCart: async(parent, { id, orderQuantity }, context) => {
+            return await Cart.findByIdAndUpdate(
+                id,
+                { orderQuantity },
+                { new: true }
+            );
+        },
+        removeCart: async(parent, { id }, context) => {
+            return await Cart.findByIdAndDelete(id);
         }
-
-
     }
 }
 

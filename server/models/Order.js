@@ -8,7 +8,7 @@ const orderSchema = new Schema({
     productId: {
         type: Schema.Types.ObjectId,
         ref: 'Product'
-        
+
     },
     orderQuantity: {
         type: Number,
@@ -20,8 +20,6 @@ const orderSchema = new Schema({
         type: String,
         required: true
     }
-
-
 });
 
 const Order = model('Order', orderSchema);
