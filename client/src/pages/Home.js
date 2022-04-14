@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
-import { USER_CART, ALL_PRODUCTS } from '../utils/queries';
+import { USER_CART, ALL_PRODUCTS, ALL_CATEGORIES } from '../utils/queries';
 
 import {
     Header,
@@ -14,20 +14,6 @@ import {
     FeaturedPost,
     Footer,
 } from '../components'
-
-
-const sections = [
-  { title: 'Technology', url: '#' },
-  { title: 'Design', url: '#' },
-  { title: 'Culture', url: '#' },
-  { title: 'Business', url: '#' },
-  { title: 'Politics', url: '#' },
-  { title: 'Opinion', url: '#' },
-  { title: 'Science', url: '#' },
-  { title: 'Health', url: '#' },
-  { title: 'Style', url: '#' },
-  { title: 'Travel', url: '#' },
-];
 
 const mainFeaturedPost = {
   title: 'Spring forward with fresh designs',
@@ -46,8 +32,12 @@ export const Home = () => {
   const userCart = useQuery(USER_CART, {
     fetchPolicy: "network-only",
   });
-  const [count, setCount] = useState();
+  const allCategories = useQuery(ALL_CATEGORIES, {
+    fetchPolicy: "network-only",
+  });
   const [products, setProducts] = useState();
+  const [count, setCount] = useState();
+  const [categories, setCategories] = useState();
 
   useEffect(() => {
     if(userCart.loading === false && userCart.data) {
@@ -61,6 +51,12 @@ export const Home = () => {
     }
   }, [allProducts.loading, allProducts.data]);
 
+  useEffect(() => {
+    if(allCategories.loading === false && allCategories.data) {
+      setCategories(allCategories.data.categories);
+    }
+  }, [allCategories.loading, allCategories.data]);
+
   const addToCart = () => {
     setCount(count + 1);
   };
@@ -73,11 +69,13 @@ export const Home = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header
-          title="E-Commerce"
-          sections={sections}
-          cartCount={count}
-        />
+        {categories && (
+          <Header
+            title="E-Commerce"
+            sections={categories}
+            cartCount={count}
+          />
+        )}
         <main>
           <MainFeaturedPost
             post={mainFeaturedPost}

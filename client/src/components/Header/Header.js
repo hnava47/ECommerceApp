@@ -109,12 +109,12 @@ export const Header = (props) => {
           <Link
             color="inherit"
             noWrap
-            key={section.title}
+            key={section.name}
             variant="body2"
             href={section.url}
             sx={{ p: 1, flexShrink: 0 }}
           >
-            {section.title}
+            {section.name}
           </Link>
         ))}
       </Toolbar>
