@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const { connect, connection } = require('mongoose');
 
 // connect('mongodb://localhost:27017/EcommerceApp', {
@@ -5,7 +6,7 @@ const { connect, connection } = require('mongoose');
 //   useUnifiedTopology: true,
 // });
 
-connect(
+mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost:27017/EcommerceApp',
   {
     useNewUrlParser: true,
