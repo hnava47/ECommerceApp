@@ -38,17 +38,24 @@ type User {
      productId: Product
      orderQuantity: Int
      username: String
+     orderPrice: Float
   }
 
-  type addCart {
+  type mutationCart {
     _id: ID
     productId: ID
     orderQuantity: Int
     username: String
+    orderPrice: Float
   }
 
   type Checkout {
     session: ID
+  }
+
+  type cartCheckout {
+    cart: [Cart]
+    totalPrice: Float
   }
 
   type Auth {
@@ -65,7 +72,7 @@ type User {
     categories: [Category]
     category(_id: ID!): Category
     checkout(products: [ID]!): Checkout
-    cart: [Cart]
+    cartCheckout: cartCheckout
   }
 
   type Mutation {
@@ -94,14 +101,14 @@ type User {
 
     addOrder(name: String, productID:ID,username: String,):Product
 
-    addCart(productId: ID!): addCart
+    addCart(productId: ID!): mutationCart
 
     updateCart(
       id: ID!
-      orderQuantity: Int!): addCart
+      orderQuantity: Int!): mutationCart
 
     removeCart(
-      id: ID!): addCart
+      id: ID!): mutationCart
   }
 `;
 

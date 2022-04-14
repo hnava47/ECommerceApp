@@ -18,10 +18,12 @@ export const CartForm = () => {
     const [updateCart] = useMutation((UPDATE_CART));
     const [removeCart] = useMutation((REMOVE_CART));
     const [cartData, setCartData] = useState();
+    const [totalCartCost, setTotalCartCost] = useState();
 
     useEffect(() => {
         if(loading === false && data) {
-            setCartData(data.cart);
+            setCartData(data.cartCheckout.cart);
+            setTotalCartCost(data.cartCheckout.totalPrice);
         }
     }, [loading, data]);
 
@@ -62,7 +64,10 @@ export const CartForm = () => {
                 {cartData.map((cart) => (
                     <ListItem key={cart._id} sx={{ py: 1, px: 0 }}>
                         <ListItemText primary={cart.productId.name} secondary={cart.productId.description} />
-                        <Typography variant="body2" sx={{ mx:2 }}>{cart.productId.unitPrice}</Typography>
+                        <Typography variant="body2" sx={{ mx:1 }}>{cart.orderQuantity}</Typography>
+                        <Typography variant="body2" sx={{ mx:1 }}>x</Typography>
+                        <Typography variant="body2" sx={{ mx:2 }}>{cart.productId.unitPrice.toFixed(2)}</Typography>
+                        <Typography variant="body2" sx={{ mx:2 }}>{cart.orderPrice.toFixed(2)}</Typography>
                         <ButtonGroup size="small">
                             <Button
                                 aria-label="reduce"
@@ -72,9 +77,6 @@ export const CartForm = () => {
                                 }}
                             >
                                 <RemoveIcon fontSize="small" />
-                            </Button>
-                            <Button>
-                                {cart.orderQuantity}
                             </Button>
                             <Button
                                 aria-label="increase"
@@ -95,11 +97,10 @@ export const CartForm = () => {
                         </IconButton>
                     </ListItem>
                 ))}
-
                 <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary="Total" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        $34.06
+                        {totalCartCost.toFixed(2)}
                     </Typography>
                 </ListItem>
                 </List>

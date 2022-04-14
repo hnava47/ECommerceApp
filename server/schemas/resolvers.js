@@ -35,9 +35,14 @@ const resolvers = {
             return await Category.findById(id);
         },
 
-        cart: async (parent, _args, context) => {
+        cartCheckout: async (parent, _args, context) => {
+            let totalPrice = 0;
             const username = context.user.username;
-            return await Cart.find({ username }).populate('productId');
+            const cart = await Cart.find({ username }).populate('productId');
+            cart.forEach((value) => {
+                totalPrice += value.orderPrice;
+            })
+            return {totalPrice, cart};
         },
 
         checkout: async (parent, args, context) => {

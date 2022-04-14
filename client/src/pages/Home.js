@@ -75,7 +75,7 @@ export const Home = () => {
 
   useEffect(() => {
     if(loading === false && data) {
-      setCount(data.cart.length);
+      setCount(data.cartCheckout.cart.length);
     }
   }, [loading, data]);
 
