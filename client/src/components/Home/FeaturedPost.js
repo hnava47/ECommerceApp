@@ -11,7 +11,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_CART } from '../../utils/mutations';
 
 export const FeaturedPost = (props) => {
-  const { post, cartCount } = props;
+  const { post, addToCart } = props;
   const [addCart] = useMutation(ADD_CART);
 
   const handleAddCart = async () => {
@@ -22,6 +22,7 @@ export const FeaturedPost = (props) => {
         }
       });
 
+      addToCart();
     } catch (error) {
       console.error(error);
     }

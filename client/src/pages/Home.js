@@ -77,7 +77,11 @@ export const Home = () => {
     if(loading === false && data) {
       setCount(data.cart.length);
     }
-  }, [loading, data])
+  }, [loading, data]);
+
+  const addToCart = () => {
+    setCount(count + 1);
+  };
 
   if (!Auth.loggedIn()) {
     return <Navigate to='/login' />;
@@ -98,7 +102,7 @@ export const Home = () => {
           />
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} cartCount={count} />
+              <FeaturedPost key={post.title} post={post} addToCart={addToCart} />
             ))}
           </Grid>
         </main>
