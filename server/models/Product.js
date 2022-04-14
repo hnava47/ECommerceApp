@@ -19,10 +19,9 @@ const productSchema = new Schema({
         min: 0,
         default: 0
     },
-    category: {
+    categoryId: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
-
     }
 });
 
