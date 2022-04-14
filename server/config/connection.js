@@ -6,7 +6,7 @@ const { connect, connection } = require('mongoose');
 //   useUnifiedTopology: true,
 // });
 
-mongoose.connect(
+connect(
   process.env.MONGODB_URI || 'mongodb://localhost:27017/EcommerceApp',
   {
     useNewUrlParser: true,
