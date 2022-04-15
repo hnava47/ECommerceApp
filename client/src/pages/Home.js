@@ -91,8 +91,8 @@ export const Home = () => {
         </main>
       </Container>
       <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
+        title="Contact Us!"
+        description="Phone number: (123)-456-7891"
       />
     </ThemeProvider>
   );
