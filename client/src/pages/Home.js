@@ -63,6 +63,7 @@ export const Home = () => {
 
   if (!Auth.loggedIn()) {
     return <Navigate to='/login' />;
+    // window.location.href = '/login';
   }
 
   return (
