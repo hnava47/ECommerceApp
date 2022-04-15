@@ -63,33 +63,30 @@ export const Home = () => {
 
   if (!Auth.loggedIn()) {
     return <Navigate to='/login' />;
-    // window.location.href = '/login';
   }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg">
-        {categories && (
+      {products && categories && (
+        <Container maxWidth="lg">
           <Header
             title="Furniture E-Commerce"
             sections={categories}
             cartCount={count}
           />
-        )}
-        <main>
-          <MainFeaturedPost
-            post={mainFeaturedPost}
-          />
-          {products && (
-            <Grid container spacing={4}>
-              {products.map((product) => (
-                <FeaturedPost key={product._id} post={product} addToCart={addToCart} />
-              ))}
-            </Grid>
-          )}
-        </main>
-      </Container>
+          <main>
+            <MainFeaturedPost
+              post={mainFeaturedPost}
+            />
+              <Grid container spacing={4}>
+                {products.map((product) => (
+                  <FeaturedPost key={product._id} post={product} addToCart={addToCart} />
+                ))}
+              </Grid>
+          </main>
+        </Container>
+      )}
       <Footer
         title="Contact Us!"
         description="Phone number: (123)-456-7891"
