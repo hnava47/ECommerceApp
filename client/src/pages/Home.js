@@ -69,28 +69,30 @@ export const Home = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {products && categories && (
-        <Container maxWidth="lg">
-          <Header
-            title="Furniture E-Commerce"
-            sections={categories}
-            cartCount={count}
-          />
-          <main>
-            <MainFeaturedPost
-              post={mainFeaturedPost}
+        <>
+          <Container maxWidth="lg">
+            <Header
+              title="Furniture E-Commerce"
+              sections={categories}
+              cartCount={count}
             />
-              <Grid container spacing={4}>
-                {products.map((product) => (
-                  <FeaturedPost key={product._id} post={product} addToCart={addToCart} />
-                ))}
-              </Grid>
-          </main>
-        </Container>
+            <main>
+              <MainFeaturedPost
+                post={mainFeaturedPost}
+              />
+                <Grid container spacing={4}>
+                  {products.map((product) => (
+                    <FeaturedPost key={product._id} post={product} addToCart={addToCart} />
+                  ))}
+                </Grid>
+            </main>
+          </Container>
+          <Footer
+          title="Contact Us!"
+          description="Phone number: (123)-456-7891"
+          />
+        </>
       )}
-      <Footer
-        title="Contact Us!"
-        description="Phone number: (123)-456-7891"
-      />
     </ThemeProvider>
   );
 }
