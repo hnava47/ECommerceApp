@@ -59,7 +59,7 @@ export const Header = (props) => {
         <IconButton
           aria-label="cart"
           component='a'
-          href='/checkout'
+          href='/#/checkout'
         >
           <StyledBadge badgeContent={cartCount} color="secondary">
             <ShoppingCartOutlinedIcon/>
