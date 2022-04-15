@@ -36,20 +36,20 @@ export const App = () => {
           <div className="container">
             <Routes>
               <Route
-                  path='/'
-                  element={<Home/>}
+                path='/'
+                element={<Home />}
               />
               <Route
                 path='/login'
-                element={<LoginSide/>}
+                element={<LoginSide />}
               />
               <Route
                 path='/signup'
-                element={<SignUp/>}
+                element={<SignUp />}
               />
               <Route
                 path='/checkout'
-                element={<Checkout/>}
+                element={<Checkout />}
               />
             </Routes>
           </div>
