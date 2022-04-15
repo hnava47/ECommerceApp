@@ -85,7 +85,7 @@ export const Header = (props) => {
         >
           <MenuItem
             component='a'
-            href='/checkout'
+            href='/#/checkout'
           >
             My orders
           </MenuItem>
